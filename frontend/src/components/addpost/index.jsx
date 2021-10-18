@@ -10,35 +10,41 @@ const defaultPost = {
   denyComments: "",
   comments: "",
 };
-const AddPost = ({addPost}) => {
-  const [postData, setPostData] = React.useState({ ...defaultPost });
-  const _addPost=async ()=>{
-        await addPost(postData)
-        setPostData({...defaultPost})
-  }
+const AddPost = ({ addPost, isUpdate = false, post }) => {
+  let defPost = isUpdate ? post : defaultPost;
+  const [postData, setPostData] = React.useState({ ...defPost });
+  const _addPost = async () => {
+    await addPost(postData);
+    setPostData({ ...defaultPost });
+  };
+  React.useEffect(() => {
+    setPostData(defPost);
+  }, [isUpdate, post]);
   return (
-    <div>
-      <div>Add a post</div>
-      
+    <div onClick={(e)=>e.stopPropagation()}>
+      <div>{!isUpdate ? "Add" : "Update"} a post</div>
+
       <div>
-      <label>Title :</label>
+        <label>Title :</label>
         <input
           type="text"
-          value={postData.title}
+          value={postData && postData.title}
           onChange={(e) => setPostData({ ...postData, title: e.target.value })}
         />
       </div>
-      
+
       <div>
-      <label>Description  :</label>
+        <label>Description :</label>
         <input
           type="text"
-          value={postData.description}
-          onChange={(e) => setPostData({ ...postData, description: e.target.value })}
+          value={postData && postData.description}
+          onChange={(e) =>
+            setPostData({ ...postData, description: e.target.value })
+          }
         />
       </div>
       <div>
-          <button onClick={_addPost}>Add post</button>
+        <button onClick={_addPost}>{!isUpdate ? "Add" : "Update"} post</button>
       </div>
     </div>
   );

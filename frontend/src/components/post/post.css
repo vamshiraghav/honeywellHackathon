@@ -2,6 +2,7 @@
  margin: 20px;   
 padding: 40px;
 text-align: left;
+cursor: pointer;
 }
 .title{
 font-size: 26px;
