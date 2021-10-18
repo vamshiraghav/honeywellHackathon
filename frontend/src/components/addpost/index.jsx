@@ -10,24 +10,27 @@ const defaultPost = {
   denyComments: "",
   comments: "",
 };
-const AddPost = () => {
+const AddPost = ({addPost}) => {
   const [postData, setPostData] = React.useState({ ...defaultPost });
-  const addPost=()=>{
-    
+  const _addPost=async ()=>{
+        await addPost(postData)
+        setPostData({...defaultPost})
   }
   return (
     <div>
       <div>Add a post</div>
-      <div>Title</div>
+      
       <div>
+      <label>Title :</label>
         <input
           type="text"
           value={postData.title}
           onChange={(e) => setPostData({ ...postData, title: e.target.value })}
         />
       </div>
-      <div>Description</div>
+      
       <div>
+      <label>Description  :</label>
         <input
           type="text"
           value={postData.description}
@@ -35,7 +38,7 @@ const AddPost = () => {
         />
       </div>
       <div>
-          <button onClick={addPost}>Add post</button>
+          <button onClick={_addPost}>Add post</button>
       </div>
     </div>
   );
