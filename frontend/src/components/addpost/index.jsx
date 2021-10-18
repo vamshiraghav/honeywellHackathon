@@ -35,7 +35,9 @@ const AddPost = ({ addPost, isUpdate = false, post }) => {
 
       <div>
         <label>Description :</label>
-        <input
+        <textarea
+            rows='10'
+            cols='100'
           type="text"
           value={postData && postData.description}
           onChange={(e) =>
